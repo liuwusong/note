@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css.css">
+    <title>原型理解-学习笔记</title>
+</head>
+
+<body class="code">
+    <pre>
+    <span class="key">function</span> <span class="function">Person</span>(name, age) {
+        <span class="key">this</span>.<span class="attr">name</span> = name;
+        <span class="key">this</span>.<span class="attr">age</span> = age
+    }
+
+    <span class="function">Person</span>.<span class="attr">prototype</span>.<span class="function">getAge</span> = function () {
+        <span class="keyWord">return</span> <span class="key">this</span>.<span class="attr">age</span>;
+    }
+    <span class="key">var</span> xiaohong = <span class="keyWord">new</span> <span class="function">Person</span>('小红', 19);
+
+    <span class="key">var</span> xiaolv = <span class="keyWord">new</span> <span class="function">Person</span>('小绿', 20);
+
+    <span class="console">console.log(<span class="const">xiaohong</span>)</span>;
+    <span class="console">console.log(<span class="const">xiaolv</span>)</span>;
+
+    <span class="note">// __proto__ 对象的原型  指向一个对象  称为 原型对象</span>
+    <span class="note">// protoType 函数的原型对象  指向一个原型对象  只有函数才特有的属性</span>
+
+
+    <span class="note">// xiaohong的__proto__ 的原型是Person.protoType Person的原型对象</span>
+    <span class="console">console.log(<span class="const">xiaohong.<span class="attr">__proto__</span> <span class="key">===</span> <span class="function">Person</span>.<span class="attr">prototype</span></span>)</span>;   <span class="note">// true</span>
+
+    <span class="note">// 自定义构造函数的原型是Object的原型对象</span>
+    <span class="console">console.log(<span class="const"><span class="function">Person</span>.<span class="attr">prototype</span>.<span class="attr">__proto__</span> <span class="key">===</span> <span class="function">Object</span>.<span class="attr">prototype</span></span>);</span> <span class="note">// true</span>
+
+    <span class="note">// Object.protoType 是原型链的顶端</span>
+    <span class="console">console.log(<span class="const"><span class="function">Object</span>.<span class="attr">prototype</span>.<span class="attr">__proto__</span> <span class="key">===</span> <span class="keyWord">null</span></span>);</span> <span class="note">// true</span>
+    <span class="note">
+    /**
+    * 这样就形成了一条原型链
+    * xiaohong是个实例对象
+    * xiaohong.__proto__ === Person.protoType
+    * Person是个构造函数
+    * Person.protoType 是个对象 （原型对象）
+    * Person.protoType.__proty__  = Object.protoType
+    * Object 是个构造函数
+    * Object.protoType 是Object的原型对象
+    * Object.protoType === null
+    */
+    </span>
+    </pre>
+    <script>
+
+        function Person(name, age) {
+            this.name = name;
+            this.age = age
+        }
+
+        Person.prototype.getAge = function () {
+            return this.age;
+        }
+        var xiaohong = new Person('小红', 19);
+
+        var xiaolv = new Person('小绿', 20);
+
+        console.log(xiaohong);
+        console.log(xiaolv);
+
+        // __proto__ 对象的原型  指向一个对象  称为 原型对象
+        // protoType 函数的原型对象  指向一个原型对象  只有函数才特有的属性
+
+        // xiaohong的__proto__ 的原型是Person.protoType Person的原型对象
+        console.log(xiaohong.__proto__ === Person.prototype);   // true
+
+        // 自定义构造函数的原型是Object的原型对象
+        console.log(Person.prototype.__proto__ === Object.prototype); // true
+
+        // Object.protoType 是原型链的顶端
+        console.log(Object.prototype.__proto__ === null); // true
+
+        /**
+         * 这样就形成了一条原型链
+         * xiaohong是个实例对象
+         * xiaohong.__proto__ === Person.protoType
+         * Person是个构造函数
+         * Person.protoType 是个对象 （原型对象）
+         * Person.protoType.__proty__  = Object.protoType
+         * Object 是个构造函数
+         * Object.protoType 是Object的原型对象
+         * Object.protoType === null
+         */
+    </script>
+</body>
+
+</html>
