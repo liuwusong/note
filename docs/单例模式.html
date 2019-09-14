@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css.css">
+    <title>单例模式 - 学习笔记</title>
+    <style>
+        .modal {
+            width: 300px;
+            padding: 10px;
+            background: #ccc;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -150px;
+            z-index: 9999;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .success {
+            color: green
+        }
+    </style>
+</head>
+
+<body class="body">
+    <div class="wrap">
+        <div class="breadcrumb">
+            路径：<a href="index.html">首页</a> / 单例模式
+        </div>
+        <div class="code">
+            <p>单例模式原理，利用闭包保存一个变量。第一次调用的时候 生成一个对象保存，以后调用重复使用此对象。</p><br>
+            演示效果：
+            <button id="open">打开</button>
+            <button id="close">关闭</button>
+            <br><br>
+            代码如下：
+        </div>
+        <pre>
+        var Modal = function (option) {
+            var opt = option || {};
+            this.open = false;
+            this.html = opt.html || '我是一个弹窗';
+            this.id = opt.id || 'modal';
+            this.type = opt.type || 'success';
+            this.style = opt.style || '';
+        }
+    
+        Modal.prototype.create = function () {
+            if (!this.open) {
+                var modalElement = document.createElement('div');
+                modalElement.className = 'modal show ' + this.type;
+                modalElement.id = this.id;
+                modalElement.innerHTML = this.html;
+                this.style && (modalElement.style = this.style);
+                document.body.appendChild(modalElement);
+                this.open = true;
+            }
+        }
+        Modal.prototype.close = function () {
+            if (this.open) {
+                var modalElement = document.getElementById(this.id);
+                document.body.removeChild(modalElement);
+                this.open = false;
+            }
+        }
+        // 单例模式的重点桥梁
+        var ceartedObject = (function () {
+            var modal;
+            // 此处用到了闭包 ceartedObject会一直保存modal的状态
+            return function () {
+                return modal || (modal = new Modal());
+            }
+        })();
+    
+    
+        var handler = {
+            modal: null,
+            open: function () {
+                // 取得modal对象 创建一个弹窗
+                this.modal = ceartedObject();
+                this.modal.create();
+            },
+            close: function () {
+                this.modal && this.modal.close();
+            }
+        }
+        document.getElementById('open').onclick = function () {
+            handler.open();
+        }
+        document.getElementById('close').onclick = function () {
+            handler.close();
+        }
+        </pre>
+    </div>
+
+
+    <script>
+
+        var Modal = function (option) {
+            var opt = option || {};
+            this.open = false;
+            this.html = opt.html || '我是一个弹窗';
+            this.id = opt.id || 'modal';
+            this.type = opt.type || 'success';
+            this.style = opt.style || '';
+        }
+
+        Modal.prototype.create = function () {
+            if (!this.open) {
+                var modalElement = document.createElement('div');
+                modalElement.className = 'modal show ' + this.type;
+                modalElement.id = this.id;
+                modalElement.innerHTML = this.html;
+                this.style && (modalElement.style = this.style);
+                document.body.appendChild(modalElement);
+                this.open = true;
+            }
+        }
+        Modal.prototype.close = function () {
+            if (this.open) {
+                var modalElement = document.getElementById(this.id);
+                document.body.removeChild(modalElement);
+                this.open = false;
+            }
+        }
+        // 单例模式的重点桥梁
+        var ceartedObject = (function () {
+            var modal;
+            // 此处用到了闭包 ceartedObject会一直保存modal的状态
+            return function () {
+                return modal || (modal = new Modal());
+            }
+        })();
+
+
+        var handler = {
+            modal: null,
+            open: function () {
+                // 取得modal对象 创建一个弹窗
+                this.modal = ceartedObject();
+                this.modal.create();
+            },
+            close: function () {
+                this.modal && this.modal.close();
+            }
+        }
+        document.getElementById('open').onclick = function () {
+            handler.open();
+        }
+        document.getElementById('close').onclick = function () {
+            handler.close();
+        }
+    </script>
+</body>
+
+</html>

@@ -13,6 +13,7 @@ body {
 .body {
     text-align: center;
     background: linear-gradient(to right, #00bcd4, #f1f1f1, #ff9800);
+    font-size: 16px;
 }
 
 .wrap {
@@ -37,15 +38,31 @@ a {
 a:hover {
     color: #03a9f4;
 }
+.breadcrumb {
+    font-size: 14px;
+    color: #666;
+    text-align: left;
+    background: #fff;
+    line-height: 40px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.breadcrumb a {
+    color: #000;
+}
+.code,
 pre {
     color: #000;
     padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    text-align-last: left;
+}
+.code + pre {
+    margin-top: -1px;
 }
 .nav {
     line-height: 30px;
-}
-.code {
-    background: #fff;
 }
 .function {
     color: #00bcd4;
