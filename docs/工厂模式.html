@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css.css">
+    <title>工厂模式 - 学习笔记</title>
+</head>
+
+<body class="body">
+    <div class="wrap">
+        <div class="breadcrumb">
+            路径：<a href="index.html">首页</a> / 工厂模式
+        </div>
+        <div class="code">
+            工厂模式: 不同的功能通过一个对象分配给不同的方法
+
+            <br>
+
+            代码实现如下：
+
+        </div>
+        <pre>
+    简单工厂模式
+
+    var person = function (name, age, active) {
+        this.name = name;
+        this.age = age;
+
+        // 简单工厂模式 通过这里分发任务 不易于拓展
+        switch (active) {
+            case 'getName':
+                console.log(this.getName());
+                break;
+            case 'getAge':
+                console.log(this.getAge());
+                break;
+            default:
+                break;
+        }
+    }
+
+    person.prototype.getName = function () {
+        return this.name;
+    }
+    person.prototype.getAge = function () {
+        return this.age;
+    }
+    var xiaoming = new person('小明', 18, 'getName');
+
+    // 面向接口工厂模式 只实现接口的抽象， 具体由子类实现
+
+    var person1 = function (name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    person1.prototype.getName = function () {
+        throw new Error("具体实现方式，由子类自行编写")
+    }
+
+    var xiaoli = function () {
+        person1.call(this, '小李', 17);
+    }
+    xiaoli.prototype.getName = function () {
+        console.log(this.name)
+    }
+    new xiaoli().getName();
+
+    var xiaohong = function () {
+        person1.call(this, '小红', 20);
+    }
+    xiaohong.prototype.getName = function () {
+        console.log(this.name)
+    }
+    new xiaohong().getName();
+</pre>
+    </div>
+    <script>
+        // 简单的工厂模式
+        var person = function (name, age, active) {
+            this.name = name;
+            this.age = age;
+
+            // 简单工厂模式 通过这里分发任务 不易于拓展
+            switch (active) {
+                case 'getName':
+                    console.log(this.getName());
+                    break;
+                case 'getAge':
+                    console.log(this.getAge());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        person.prototype.getName = function () {
+            return this.name;
+        }
+        person.prototype.getAge = function () {
+            return this.age;
+        }
+        var xiaoming = new person('小明', 18, 'getName');
+
+
+        // 面向接口工厂模式 只实现接口的抽象， 具体由子类实现
+
+        var person1 = function (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        person1.prototype.getName = function () {
+            throw new Error("具体实现方式，由子类自行编写")
+        }
+
+        var xiaoli = function () {
+            person1.call(this, '小李', 17);
+        }
+        xiaoli.prototype.getName = function () {
+            console.log(this.name)
+        }
+        new xiaoli().getName();
+
+        var xiaohong = function () {
+            person1.call(this, '小红', 20);
+        }
+        xiaohong.prototype.getName = function () {
+            console.log(this.name)
+        }
+        new xiaohong().getName();
+    </script>
+</body>
+
+</html>

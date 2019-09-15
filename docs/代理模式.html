@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css.css">
+    <title>代理模式 - 学习笔记</title>
+</head>
+
+<body class="body">
+    <div class="wrap">
+        <div class="breadcrumb">
+            路径：<a href="index.html">首页</a> / 代理模式
+        </div>
+        <div class="code">
+
+            代理模式： 使用一个代理对象 处理具体逻辑
+            <br>
+
+            代码实现如下：
+
+        </div>
+        <pre>
+    var Car = function (name, price) {
+        this.name = name;
+        this.price = price;
+    }
+    Car.prototype.getPrice = function () {
+        return this.price;
+    }
+    Car.prototype.getName = function () {
+        return this.name;
+    }
+    var BMW = new Car('宝马', 600);
+    // 代理商帮助用户处理买车逻辑
+    var agent = {
+        buyCar: function (name, price) {
+            if (price >= 300) {
+                person.buyCar(name, price)
+            } else {
+                console.log('价钱不合适，不是客户的预期')
+            }
+        }
+    }
+    // 用户只管买车付钱炫耀
+    var person = {
+        buyCar: function (name, price) {
+            console.log('我买了一辆' + name + '花了' + price + '万呢');
+        }
+    }
+    // 代理商跟宝马谈生意
+    agent.buyCar(BMW.getName(), BMW.getPrice());
+</pre>
+    </div>
+    <script>
+        var Car = function (name, price) {
+            this.name = name;
+            this.price = price;
+        }
+        Car.prototype.getPrice = function () {
+            return this.price;
+        }
+        Car.prototype.getName = function () {
+            return this.name;
+        }
+        var BMW = new Car('宝马', 600);
+        // 代理商帮助用户处理买车逻辑
+        var agent = {
+            buyCar: function (name, price) {
+                if (price >= 300) {
+                    person.buyCar(name, price)
+                } else {
+                    console.log('价钱不合适，不是客户的预期')
+                }
+            }
+        }
+        // 用户只管买车付钱炫耀
+        var person = {
+            buyCar: function (name, price) {
+                console.log('我买了一辆' + name + '花了' + price + '万呢');
+            }
+        }
+        // 代理商跟宝马谈生意
+        agent.buyCar(BMW.getName(), BMW.getPrice());
+    </script>
+</body>
+
+</html>
